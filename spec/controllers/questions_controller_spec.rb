@@ -2,7 +2,14 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
 
-  let(:my_question) { Question.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: false) }
+  let(:my_question) do
+    Question.create!(
+      id: 1,
+      title: RandomData.random_sentence,
+      body: RandomData.random_paragraph,
+      resolved: false
+    )
+  end
 # Done
   describe "GET #index" do
     it "returns http success" do
@@ -39,13 +46,6 @@ RSpec.describe QuestionsController, type: :controller do
       get :edit, {id: my_question.id}
       expect(response).to render_template :edit
     end
-    it "assigns question to be updated to @question" do
-      get :question, {id: my_question.id}
-      question_instance = assigns(:question)
-      expect(question_instance.id).to eq my_question.id
-      expect(question_instance.title).to eq my_question.title
-      expect(question_instance.body).to eq my_question.body
-    end
   end
 # Done
   describe "GET #new" do
@@ -64,16 +64,17 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   # Create Done
-  describe "QUESTION create" do
+  describe "POST create" do
     it "increases the number of Question by 1" do
-      expect{question :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph}}.to change(Question,:count).by(1)
+      expect{post :create, {question: {title: "Title", body: "Body", resolved: false}}
+      }.to change(Question,:count).by(1)
     end
     it "assigns the new question to @question" do
-      question :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+      post :create, {question: my_question.attributes}
       expect(assigns(:question)).to eq Question.last
     end
     it "redirects to the new question" do
-      question :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+      post :create, {question: my_question.attributes}
       expect(response).to redirect_to Question.last
     end
   end

@@ -17,15 +17,12 @@ class QuestionsController < ApplicationController
 
 
 	def create
-		@question = Question.new
-    @question.title = params[:question][:title]
-    @question.body = params[:question][:body]
-    @question.resolved = params[:question][:boolean]
+		@question = Question.new(params.require(:question).permit(:title, :body, :resolved))
     if @question.save
       flash[:notice] = "Question was saved."
       redirect_to @question
     else
-      flash.now[:alert] = "There was an error saving the question. Please try again."
+      flash[:error] = "There was an error saving the question. Please try again."
       render :new
     end
 	end
@@ -53,5 +50,5 @@ class QuestionsController < ApplicationController
       render :show
     end
 	end
-  
+
 end
