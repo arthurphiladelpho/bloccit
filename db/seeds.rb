@@ -6,11 +6,12 @@ require 'random_data'
 		description:  RandomData.random_paragraph
 	)
 end
-topics = Topic.all
 
+topics = Topic.all
 
 50.times do
   Post.create!(
+  	topic:  topics.sample,
   	title:  RandomData.random_sentence,
    	body:   RandomData.random_paragraph
   )
@@ -18,12 +19,28 @@ end
 
 posts = Post.all
 
+50.times do
+  SponsoredPost.create!(
+  	title:  RandomData.random_sentence,
+   	body:   RandomData.random_paragraph
+  )
+end
+
+sponsored_posts = Post.all
+
 100.times do
 	Comment.create!(
 		post: posts.sample,
 		body: RandomData.random_paragraph
  	)
-	end
+end
+
+100.times do
+	Comment.create!(
+		post: sponsored_posts.sample,
+		body: RandomData.random_paragraph
+ 	)
+end
 
 Post.find_or_create_by!(
 	topic: topics.sample,
@@ -31,7 +48,14 @@ Post.find_or_create_by!(
   body:   RandomData.random_paragraph
 )
 
+SponsoredPost.find_or_create_by!(
+	topic: topics.sample,
+	title:  RandomData.random_sentence,
+  body:   RandomData.random_paragraph
+)
+
 posts = Post.all
+sponsored_posts = SponsoredPost.all
 
 Comment.find_or_create_by!(
 	post: posts.sample,
