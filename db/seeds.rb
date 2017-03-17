@@ -22,7 +22,7 @@ topics = Topic.all
 
 50.times do
   Post.create!(
-  	# user: users.sample,
+  	user: users.sample,
   	topic: topics.sample,
   	title:  RandomData.random_sentence,
    	body:   RandomData.random_paragraph
@@ -74,7 +74,7 @@ user.update_attributes!(
 )
 
 puts "Seed finished"
-# puts "#{User.count} users created"
+puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
