@@ -40,6 +40,7 @@ posts = Post.all
 
 Post.find_or_create_by!(
 	topic: topics.sample,
+	user_id: User.first.id,
 	title:  RandomData.random_sentence,
   body:   RandomData.random_paragraph
 )
@@ -66,12 +67,7 @@ Question.find_or_create_by!(
 )
 
 user = User.first
-user.update_attributes!(
-	user.update_attributes!(
-		email: 'arthur22rj@gmail.com',
-		password: 'pass123'
-	)
-)
+user.update_attributes!(email: 'arthur22rj@gmail.com', password: 'pass123')
 
 puts "Seed finished"
 puts "#{User.count} users created"
