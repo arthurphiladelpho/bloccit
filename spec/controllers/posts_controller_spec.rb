@@ -10,15 +10,15 @@ let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: 
   context "guest user" do
     describe "GET show" do
       it "returns http success" do
-        get :show, topic_id: my_topic.id, id: my_topic.id
+        get :show, topic_id: my_topic.id, id: my_post.id
         expect(response).to have_http_status(:success)
       end
       it "renders the #show view" do
-        get :show, topic_id: my_topic.id, id: my_topic.id
+        get :show, topic_id: my_topic.id, id: my_post.id
         expect(response).to render_template :show
       end
       it "assigns my_post to @post" do
-        get :show, topic_id: my_topic.id, id: my_topic.id
+        get :show, topic_id: my_topic.id, id: my_post.id
         expect(assigns(:post)).to eq(my_post)
       end
     end
