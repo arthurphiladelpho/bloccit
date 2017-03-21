@@ -66,8 +66,19 @@ Question.find_or_create_by!(
 	body: RandomData.random_paragraph
 )
 
-user = User.first
-user.update_attributes!(email: 'arthur22rj@gmail.com', password: 'pass123')
+admin = User.create!(
+	name:     'Admin User',
+  email:    'admin@example.com',
+  password: 'helloworld',
+  role:     'admin'
+)
+
+member = User.create!(
+	name:     'Member User',
+  email:    'member@example.com',
+  password: 'helloworld',
+  role:     'member'
+)
 
 puts "Seed finished"
 puts "#{User.count} users created"
