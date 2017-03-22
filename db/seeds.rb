@@ -33,6 +33,7 @@ posts = Post.all
 
 100.times do
 	Comment.create!(
+		user: users.sample,
 		post: posts.sample,
 		body: RandomData.random_paragraph
  	)
@@ -48,6 +49,7 @@ Post.find_or_create_by!(
 posts = Post.all
 
 Comment.find_or_create_by!(
+	user_id: User.first.id,
 	post: posts.sample,
   body: RandomData.random_paragraph
 )
