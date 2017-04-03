@@ -5,12 +5,15 @@ class Post < ActiveRecord::Base
 	has_many :votes, dependent: :destroy
   has_many :favorites, dependent: :destroy 
   
+
 	default_scope { order('rank DESC')}
 
 	validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
   validates :topic, presence: true
   validates :user, presence: true
+
+  # after_create :send_new_post_email
 
   def up_votes
   	votes.where(value: 1).count
@@ -30,6 +33,12 @@ class Post < ActiveRecord::Base
     update_attribute(:rank, new_rank)
   end
 
+  # send new_post email function
 
+  # private 
+
+  # def send_new_post_email
+  #   FavoriteMailer.new_post(self.user, self).deliver_now
+  # end
 
 end

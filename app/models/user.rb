@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
 
 	def favorite_for(post)
     favorites.where(post_id: post.id).first
+    #.first here is just used to return the value 1 for truthy or nil for falsey
   end
 
 end

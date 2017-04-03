@@ -30,6 +30,7 @@ RSpec.describe Post, type: :model do
 	end
 
 	describe "voting" do
+		
 		before do
 			3.times { post.votes.create!(value: 1) }
 			2.times { post.votes.create!(value: -1) }
@@ -70,6 +71,15 @@ RSpec.describe Post, type: :model do
         expect(post.rank).to eq (old_rank - 1)
       end
     end
-	end
-
+    describe "after_create" do
+    	it "favorites the post created" do
+    		favorite = user.favorites.where(post: @post).create
+      	expect(user.favorite_for(@post)).to eq(favorite)
+    	end
+    	it "sends an email to the user that created the post" do
+    		favorite = user.favorites.create(post: post)
+				expect(FavoriteMailer).to receive(:new_post).with(user, post).and_return(double(deliver_now: true))
+    	end
+    end
+  end
 end
