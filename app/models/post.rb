@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 	has_many :comments, dependent: :destroy
 	has_many :votes, dependent: :destroy
 	default_scope { order('rank DESC')}
+  after_create :create_vote
 
 	validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
@@ -28,6 +29,20 @@ class Post < ActiveRecord::Base
     update_attribute(:rank, new_rank)
   end
 
+  private
+
+  def create_vote
+      self.votes.create!(value: 1)
+      update_rank
+  end
+
+  # Why not do it like it's done beneath?
+    # The up_vote method is defined in the votes controller.
+
+   # def create_vote
+      # self.up_vote
+      # update_rank
+  # end
 
 
 end

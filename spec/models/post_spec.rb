@@ -51,6 +51,14 @@ RSpec.describe Post, type: :model do
 			end
 		end
 
+		describe "#create_vote" do
+			it "adds one to the votes value after creating a vote" do
+				old_rank = post.rank
+        post.votes.create!(value: 1)
+        expect(post.rank).to eq (old_rank + 1)
+			end
+		end
+
 		describe "#update_rank" do
       it "calculates the correct rank" do
         post.update_rank
@@ -61,8 +69,7 @@ RSpec.describe Post, type: :model do
         old_rank = post.rank
         post.votes.create!(value: 1)
         expect(post.rank).to eq (old_rank + 1)
-      end
- 
+      end      
       it "updates the rank when a down vote is created" do
         old_rank = post.rank
         post.votes.create!(value: -1)
