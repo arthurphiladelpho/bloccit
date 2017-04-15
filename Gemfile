@@ -34,3 +34,5 @@ gem 'turbolinks'
 gem 'bootstrap-sass'
 # BCrypt
 gem 'bcrypt'
+# Figaro
+gem 'figaro', '1.0'
