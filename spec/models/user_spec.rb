@@ -66,13 +66,10 @@ RSpec.describe User, type: :model do
   end
 
   describe "invalid user" do
-<<<<<<< HEAD
   	let(:user_with_invalid_name) { build(:user, name: "") }
     let(:user_with_invalid_email) { build(:user, email: "") }
-=======
   	let(:user_with_invalid_name) { User.new(name: "", email: "user@bloccit.com") }
     let(:user_with_invalid_email) { User.new(name: "Bloccit User", email: "") } 
->>>>>>> checkpoint-31
     
     it "should be an invalid user due to blank name" do
       expect(user_with_invalid_name).to_not be_valid
@@ -80,8 +77,6 @@ RSpec.describe User, type: :model do
     it "should be an invalid user due to blank email" do
       expect(user_with_invalid_email).to_not be_valid
     end
-<<<<<<< HEAD
-=======
   end
 
   describe "#favorite_for(post)" do
@@ -98,7 +93,6 @@ RSpec.describe User, type: :model do
       favorite = user.favorites.where(post: @post).create
       expect(user.favorite_for(@post)).to eq(favorite)
     end
->>>>>>> checkpoint-31
   end
 
   # favorite_for method test was created in checkpoint 31 which wasn't merged into master before starting this checkpoint.
