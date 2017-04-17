@@ -3,7 +3,8 @@ class Post < ActiveRecord::Base
 	belongs_to :user	
 	has_many :comments, dependent: :destroy
 	has_many :votes, dependent: :destroy
-	
+	after_create :create_favorite
+
   default_scope { order('rank DESC')}
   
   scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true) }
@@ -31,6 +32,9 @@ class Post < ActiveRecord::Base
     update_attribute(:rank, new_rank)
   end
 
-
+  def create_favorite
+    Favorite.create(post: self, user: self.user)
+    FavoriteMailer.new_post(self).deliver_now
+  end
 
 end
