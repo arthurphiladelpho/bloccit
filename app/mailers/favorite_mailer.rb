@@ -2,7 +2,7 @@ class FavoriteMailer < ApplicationMailer
   default from: "arthur22rj@gmail.com"
 
   def new_comment(user, post, comment)
-	@user = user
+	  @user = user
     @post = post
     @comment = comment
 
@@ -12,5 +12,16 @@ class FavoriteMailer < ApplicationMailer
  
     mail(to: user.email, subject: "New comment on #{post.title}")
   end
+
+  def new_post(user, post)
+    @user = user
+    @post = post
+
+    headers["Message-ID"] = "<post/#{post.id}@your-app-name.example>"
+    headers["In-Reply-To"] = "<post/#{post.id}@your-app-name.example>"
+    headers["References"] = "<post/#{post.id}@your-app-name.example>"
+ 
+    mail(to: user.email, subject: "You favorited your own post : #{post.title}")
+  end  
   
 end
