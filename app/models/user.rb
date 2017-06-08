@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
     favorites.where(post_id: post.id).first
   end
 
+  def tester
+  	true
+  end
+
   def has_any_posts?
   	self.posts.count != 0
   end
