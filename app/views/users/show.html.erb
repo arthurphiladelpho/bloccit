@@ -25,9 +25,20 @@
 <% else %>  
   <p> <%= @user.name %> has no posts. </p>
 <% end %>
+
 <% if @user.has_any_comments? %>
   <h2>Comments</h2>
   <%= render @user.comments %>
 <% else %>  
   <p> <%= @user.name %> has no comments. </p>
 <% end %>
+
+<% if @user.has_any_favs? %>
+  <h2>Favorites</h2>
+  <% @user.favorites.each do | i |  %> 
+    <%= render partial: 'favorite', locals: { post: Post.find(i.post_id) } %>
+  <% end %>
+<% else %>  
+  <p> <%= @user.name %> has no favorites. </p>
+<% end %>
+

@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
   	true
   end
 
+  def has_any_favs?
+  	self.favorites.count != 0
+  end
+
   def has_any_posts?
   	self.posts.count != 0
   end
