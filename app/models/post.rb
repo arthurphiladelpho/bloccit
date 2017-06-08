@@ -38,7 +38,7 @@ class Post < ActiveRecord::Base
 
   def favorite_own
     # Make your own post a favorite.
-    user.favorites.build(post: self)
+    user.favorites.save(post: self)
     # Send email.
     FavoriteMailer.new_post(user, self).deliver_now
   end
